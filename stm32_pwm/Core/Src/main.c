@@ -17,7 +17,8 @@
 #include "stm32f0xx.h"
 #include "stm32f0xx_hal.h"
 #include "string.h"
-
+#include "stm32f0xx_hal_uart.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -39,6 +40,8 @@ ADC_HandleTypeDef hadc;
 
 TIM_HandleTypeDef htim3;
 
+UART_HandleTypeDef huart2;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -48,6 +51,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC_Init(void);
+static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -56,6 +60,7 @@ static void MX_ADC_Init(void);
 /* USER CODE BEGIN 0 */
 uint32_t potadc;
 uint32_t servopot;
+char str[32];
 /* USER CODE END 0 */
 
 /**
@@ -88,12 +93,13 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim3);
 
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
- // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,7 +109,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
+	  int size_len = sprintf (str, "Servo acisi : %lu\n", servopot, 0xFFFF);
 
 	  HAL_ADC_Start(&hadc);
 	  if(HAL_ADC_PollForConversion(&hadc, 5) == HAL_OK);
@@ -113,12 +119,13 @@ int main(void)
 
 		  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, servopot);
 		  HAL_ADC_Start_IT(&hadc);
+		  HAL_Delay(1);
+
 	  }
 	  	  servopot = potadc/6;
 
-
-
-
+	  	HAL_UART_Transmit (&huart2, (uint8_t *)str, size_len, HAL_MAX_DELAY);
+	  	  HAL_Delay(1);
 	}
 
 
@@ -273,6 +280,41 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 2 */
   HAL_TIM_MspPostInit(&htim3);
+
+}
+
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART2_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 9600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
 
 }
 
