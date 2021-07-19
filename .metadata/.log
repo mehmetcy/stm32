@@ -1,0 +1,31 @@
+!SESSION 2021-01-06 13:14:39.528 -----------------------------------------------
+eclipse.buildId=Version 1.4.2
+java.version=1.8.0_242
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=tr_TR
+Framework arguments:  D:\github\stm32\stm32_new\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\github\stm32\stm32_new\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2021-01-06 13:15:02.162
+!MESSAGE Log4j initialized with config file D:\github\stm32\.metadata\.log4j.xml
+
+!ENTRY org.eclipse.core.net 4 0 2021-01-06 13:15:05.461
+!MESSAGE WinHttp.DetectAutoProxyConfigUrl for wpad failed with error 'Proxy Otomatik Yapýlandýrma URL'si bulunamadý.
+' #12180.
+
+!ENTRY org.eclipse.core.net 4 0 2021-01-06 13:15:05.477
+!MESSAGE WinHttp.GetProxyForUrl for pac failed with error 'Proxy otomatik yapýlandýrma komut dosyasý karþýdan yüklenemedi
+' #12167.
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2021-01-06 13:15:06.695
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.core.resources 4 77 2021-01-06 13:15:07.826
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2021-01-06 13:15:07.826
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2021-01-06 13:15:07.826
+!MESSAGE D:\github\stm32\stm32_new overlaps the location of another project: 'stm32_new'
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2021-01-06 13:15:08.438
+!MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
