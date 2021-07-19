@@ -1,0 +1,2 @@
+buttondriver.c:10:6:buttondriver_init	8	static
+buttondriver.c:16:5:buttondriver_get_state	8	static
